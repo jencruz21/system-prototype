@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <title>System - Transaction</title>
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="row row-cols-2 mb-3">
+            <!-- Ordering Details -->
+            <div class="col-md-6">
+                <div class="p-4 m-1 rounded shadow-sm">
+                    <form action="" method="post">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item_name">Item Name</label>
+                                    <select class="form-control" name="item_name" id="item_name">
+                                        <option selected disabled>SELECT</option>
+                                        <% items.forEach(item => { %>
+                                            <option value="<%= item.item_name %>"><%= item.item_name %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="select_pricing">Select Pricing</label>
+                                <select class="form-control" name="select_pricing" id="select_pricing">
+                                    <option selected disabled>SELECT</option>
+                                    <option value="market">Market</option>
+                                    <option value="retail">Retail</option>
+                                    <option value="delivery">Delivery</option>
+                                </select>
+                              </div>  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="by_sacks">By Sacks</label>
+                                    <input class="form-control" type="number" name="by_sacks" id="by_sacks" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="by_kilos">By Kilos</label>
+                                    <input class="form-control" type="text" name="by_kilos" id="by_kilos" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="amount">Amount</label>
+                                    <input class="form-control" type="number" name="amount" id="amount">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- End Ordering Details -->
+
+            <!-- Item Details -->
+            <div class="col-md-6">
+                <div class="m-1 shadow-sm rounded p-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="item_sacks" class="form-label">Item Sacks</label>
+                                <input type="number" name="item_sacks" id="item_sacks" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="item_kilos" class="form-label">Item Kilos</label>
+                                <input type="number" name="item_kilos" id="item_kilos" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="item_grams" class="form-label">Item Grams</label>
+                                <input type="number" name="item_grams" id="item_grams" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="item_type" class="form-label">Item Type</label>
+                                <input type="text" name="item_type" id="item_type" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="item_price" class="form-label">Item Price</label>
+                                <input type="number" name="item_price" id="item_price" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Item Details -->
+        </div>
+        <div class="row row-cols-2">
+            <div class="col-md-5">
+                <div class="p-4 shadow-sm rounded">
+                    <!-- Customer Details -->
+                    <div class="p-3 mb-3">
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <label for="customer" class="form-label">Select Customer</label>
+                                <select class="form-control" name="customer" id="customer">
+                                    <option disabled selected>SELECT</option>
+                                    <% customers.forEach(customer => { %>
+                                        <option value="<%= customer.customer_name %>"><%= customer.customer_name %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prev_remittance" class="form-label">Previous Remittance</label>
+                                        <input class="form-control" type="text" name="prev_remittance" id="prev_remittance" readonly disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prev_balance" class="form-label">Previous Balance</label>
+                                        <input class="form-control" type="text" name="prev_balance" id="prev_balance" readonly disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="is_cleared" class="form-label">Is Cleared?</label>
+                                        <input class="form-control" type="text" name="is_cleared" id="is_cleared" readonly disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="credit_limit" class="form-label">Credit Limit</label>
+                                        <input class="form-control" type="text" name="credit_limit" id="credit_limit" readonly disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End Customer Details -->
+                    <hr>
+                    <!-- Payment Details -->
+                    <div class="p-3">
+                        <!-- <form action="" method="post"> -->
+                            <input type="submit" value="Transact" class="btn btn-primary w-100 mb-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="payment_date" class="form-label">Payment Date</label>
+                                        <input class="form-control" type="date" name="payment_date" id="payment_date" disabled readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="trans_type" class="form-label">Trans. Type</label>
+                                        <select name="trans_type" id="trans_type" class="form-control">
+                                            <option value="DELIVERY">DELIVERY</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="add_ons" class="form-label">Add-ons</label>
+                                        <input type="number" name="add_ons" id="add_ons" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="less" class="form-label">Less</label>
+                                        <input type="number" name="less" id="less" class="form-control">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="cash_remitted" class="form-label">Cash Remitted</label>
+                                <input type="number" name="cash_remitted" id="cash_remitted" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="check_value" class="form-label">Check Value</label>
+                                <input type="number" name="check_value" id="check_value" class="form-control">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label for="check_number" class="form-label">Check Number</label>
+                                        <input type="number" name="check_number" id="check_number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="check_date" class="form-label">Check Date</label>
+                                        <input type="date" name="check_date" id="check_date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="notes" class="form-label">Notes for Transaction</label>
+                                <input type="text" name="notes" id="notes" class="form-control">
+                            </div>
+                        <!-- </form> -->
+                    </div>
+                    <!-- End Payment Details -->
+                </div>
+            </div>
+
+            <!-- Transaction Details -->
+            <div class="col-md-7">
+                <div class="p-4 shadow-sm rounded">
+                    <div class="row">
+                        <div class="cols-md-6">
+                            <div class="form-group">
+                                <label for="item_subtotal" class="form-label">Item(s) Subtotal</label>
+                                <input type="number" name="item_subtotal" id="item_subtotal" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                        <div class="cols-md-6">
+                            <div class="form-group">
+                                <label for="grand_total" class="form-label">Grand Total</label>
+                                <input type="number" name="grand_total" id="grand_total" class="form-control" readonly style="background-color: #e3e3e3;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="cavans" class="form-label">Cavans</label>
+                                <input type="number" name="cavans" id="cavans" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="change" class="form-label">Change</label>
+                                <input type="number" name="change" id="change" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="transact_status" class="form-label">Status</label>
+                                <input type="text" name="transact_status" id="transact_status" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-responsive table-striped table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Pricing</th>
+                                <th>Price</th>
+                                <th>Amount</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- End Transaction Details -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    <script src="/js/transaction.js"></script>
+</body>
+</html>
