@@ -52,7 +52,7 @@ const tbody = document.getElementById('tbody')
  * Start Fetch Listener
  */
 // Fetching the data from the database
-customer.addEventListener("change", async function(event) {
+customer.addEventListener("change", async function (event) {
     console.log(event.target.value);
     try {
         const response = await fetch(`/customer/${event.target.value}`)
@@ -75,7 +75,7 @@ customer.addEventListener("change", async function(event) {
     }
 })
 
-item_name.addEventListener("change", async function(event) {
+item_name.addEventListener("change", async function (event) {
     console.log(event.target.value);
     try {
         const response = await fetch(`/inventory/${event.target.value}`)
@@ -86,7 +86,7 @@ item_name.addEventListener("change", async function(event) {
         item_kilos.value = data.item_kilos
         item_grams.value = kg_to_grams(data.item_kilos)
         item_price.value = data.item_price
-        
+
         by_kilos.value = data.item_kilos
         by_sacks.value = 1
     } catch (error) {
@@ -101,7 +101,7 @@ item_name.addEventListener("change", async function(event) {
 /**
  * Selected Pricing
  */
-selected_pricing.addEventListener("change", function(event) {
+selected_pricing.addEventListener("change", function (event) {
     /**
      * if market
      *  disable by kilos
@@ -128,18 +128,18 @@ selected_pricing.addEventListener("change", function(event) {
  */
 
 // amount multiple this items by 5 sacks and kilos
-amount.addEventListener('change', function(event) {
+amount.addEventListener('change', function (event) {
     const { value } = event.target
     by_sacks.value = by_sacks.value * value
     by_kilos.value = by_kilos.value * value
 })
 
-amount.addEventListener('keypress', function(event) {
+amount.addEventListener('keypress', function (event) {
     if (event.key === "Enter") {
         // const by_sacks_value = by_sacks.value * amount.value
         // const by_kilos_value = by_kilos.value * amount.value
 
-        const by_sacks_str = by_sacks.value > 1 ? `${by_sacks.value} sacks` : `${by_sacks.value} sack` 
+        const by_sacks_str = by_sacks.value > 1 ? `${by_sacks.value} sacks` : `${by_sacks.value} sack`
         const amount_total = item_price.value * amount.value
 
         // creating elements for the tbody
@@ -188,7 +188,7 @@ amount.addEventListener('keypress', function(event) {
                 amount: amount_total
             })
 
-            totalCavans += toCavans(parseInt(by_kilos.value))
+                     aaa
         }
 
         tr.appendChild(item_name_col)
@@ -206,23 +206,23 @@ amount.addEventListener('keypress', function(event) {
         grandTotal += parseFloat(item_price.value * amount.value)
         grand_total.value = grandTotal
         cavans.value = parseInt(totalCavans)
+        console.log(data);
 
         resetItemsFields()
-    }
+    }   
 })
 
 /**
  * add ons
  */
-add_ons.addEventListener("keypress", function(e) {
+add_ons.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
         const value = e.target.value
         const parsedValue = parseInt(value)
         grandTotal += parsedValue
         grand_total.value = grandTotal
-        console.log(grandTotal);
 
-        if (grandTotal < 0)  {
+        if (grandTotal < 0) {
             grandTotal = 0
             grand_total.value = grandTotal
             return
@@ -236,7 +236,7 @@ add_ons.addEventListener("keypress", function(e) {
 /**
  * additional less
  */
-less.addEventListener("keypress", function(e) {
+less.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
         const value = e.target.value
 
@@ -244,7 +244,7 @@ less.addEventListener("keypress", function(e) {
         grandTotal -= parsedValue
         grand_total.value = grandTotal
 
-        if (grandTotal < 0)  {
+        if (grandTotal < 0) {
             grandTotal = 0
             grand_total.value = grandTotal
             return
@@ -259,19 +259,18 @@ less.addEventListener("keypress", function(e) {
 /** 
  * grand total change
 */
-grand_total.addEventListener("dblclick", function(e) {
+grand_total.addEventListener("dblclick", function (e) {
     grand_total.readOnly = false
 })
 
-grand_total.addEventListener("keypress", function(e) {
+grand_total.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
         grandTotal = e.target.value
-        console.log(grandTotal);
         grand_total.readOnly = true
     }
 })
 
-grand_total.addEventListener('mouseout', function(e) {
+grand_total.addEventListener('mouseout', function (e) {
     grand_total.readOnly = true
 })
 /**
@@ -284,32 +283,35 @@ function deleteItems(e) {
     data.splice(e.target.parentElement.parentElement.id, 1)
     const quantityText = e.target.parentElement.parentElement.getElementsByTagName('td')[1].innerText
     const priceText = e.target.parentElement.parentElement.getElementsByTagName('td')[3].innerText
-    const result = quantityText.split(" ")[0]
     if (quantityText.indexOf("Kg")) {
         // Kg
+        const result = quantityText.split(" ")[0]
         const kgResult = toCavans(result)
-        subtractCavans(kgResult)
+        totalCavans -= parseInt(kgResult)
+        cavans.value = totalCavans
     } else if (quantityText.indexOf("sacks")) {
-        // sacks
-        subtractCavans(result)
+        const result = quantityText.split(" ")[0]
+        totalCavans -= parseInt(result)
+        cavans.value = totalCavans
     } else if (quantityText.indexOf("sack")) {
-        // sack
-        subtractCavans(result)
+        const result = quantityText.split(" ")[0]
+        totalCavans -= parseInt(result)
+        cavans.value = totalCavans
     }
 }
 
 // generate uuid
-function generateUUID() { 
+function generateUUID() {
     var d = new Date().getTime()
-    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         var r = Math.random() * 16
-        if(d > 0) {
+        if (d > 0) {
             r = (d + r) % 16 | 0
             d = Math.floor(d / 16)
         } else {
             r = (d2 + r) % 16 | 0
-            d2 = Math.floor(d2/16)
+            d2 = Math.floor(d2 / 16)
         }
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
     });
@@ -320,7 +322,7 @@ function kg_to_grams(kg) {
 }
 
 function grams_to_kg(grams) {
-    return grams * KILOS 
+    return grams * KILOS
 }
 
 function resetItemsFields() {
@@ -362,5 +364,5 @@ function subtractCavans(str) {
     const year = date.getFullYear()
     const today = year + "-" + month + "-" + day
 
-    payment_date.value = today            
+    payment_date.value = today
 })();
