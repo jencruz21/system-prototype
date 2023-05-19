@@ -187,8 +187,6 @@ amount.addEventListener('keypress', function (event) {
                 price: item_price.value,
                 amount: amount_total
             })
-
-                     aaa
         }
 
         tr.appendChild(item_name_col)
