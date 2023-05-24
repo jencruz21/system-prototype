@@ -280,7 +280,9 @@ function deleteItems(e) {
     e.target.parentElement.parentElement.remove()
     data.splice(e.target.parentElement.parentElement.id, 1)
     const quantityText = e.target.parentElement.parentElement.getElementsByTagName('td')[1].innerText
-    const priceText = e.target.parentElement.parentElement.getElementsByTagName('td')[3].innerText
+    const amountText = e.target.parentElement.parentElement.getElementsByTagName('td')[4].innerText
+    const amountTextNumber = parseInt(amountText)
+    console.log(quantityText);
     if (quantityText.indexOf("Kg")) {
         // Kg
         const result = quantityText.split(" ")[0]
@@ -296,6 +298,12 @@ function deleteItems(e) {
         totalCavans -= parseInt(result)
         cavans.value = totalCavans
     }
+
+    grandTotal -= amountTextNumber
+    itemSubtotal -= amountTextNumber
+
+    grand_total.value = grandTotal
+    item_subtotal.value = itemSubtotal
 }
 
 // generate uuid
